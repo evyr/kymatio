@@ -2,7 +2,7 @@
 Classification of handwritten digits
 ====================================
 
-Based on pytorch example for MNIST
+Based on pytorch example for Fashion-MNIST
 """
 
 
@@ -57,7 +57,7 @@ def test(model, device, test_loader, scattering):
         100. * correct / len(test_loader.dataset)))
 
 def main():
-    """Train a simple Hybrid Scattering + CNN model on MNIST.
+    """Train a simple Hybrid Scattering + CNN model on Fashion-MNIST.
 
         Three models are demoed:
         'linear' - scattering + linear model
@@ -71,7 +71,7 @@ def main():
         scatter + cnn achieves 99.3% in 15 epochs
 
     """
-    parser = argparse.ArgumentParser(description='MNIST scattering  + hybrid examples')
+    parser = argparse.ArgumentParser(description='Fashion-MNIST scattering  + hybrid examples')
     parser.add_argument('--mode', type=int, default=2,help='scattering 1st or 2nd order')
     parser.add_argument('--classifier', type=str, default='linear',help='classifier model')
     args = parser.parse_args()
@@ -143,14 +143,14 @@ def main():
         pin_memory = False
 
     train_loader = torch.utils.data.DataLoader(
-        datasets.MNIST(scattering_datasets.get_dataset_dir('MNIST'), train=True, download=True,
+        datasets.FashionMNIST(scattering_datasets.get_dataset_dir('FashionMNIST'), train=True, download=True,
                        transform=transforms.Compose([
                            transforms.ToTensor(),
                            transforms.Normalize((0.1307,), (0.3081,))
                        ])),
         batch_size=128, shuffle=True, num_workers=num_workers, pin_memory=pin_memory)
     test_loader = torch.utils.data.DataLoader(
-        datasets.MNIST(scattering_datasets.get_dataset_dir('MNIST'), train=False, transform=transforms.Compose([
+        datasets.FashionMNIST(scattering_datasets.get_dataset_dir('FashionMNIST'), train=False, transform=transforms.Compose([
             transforms.ToTensor(),
             transforms.Normalize((0.1307,), (0.3081,))
         ])),
